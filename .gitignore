@@ -1,3 +1,8 @@
 ./logs/*
 ./env
 .DS_Store
+*/screenshots/realtime/*
+*/screenshots/all/daiy/*
+*/screenshots/all/weekly/*
+*/screenshots/all/monthly/*
+cookies.txt

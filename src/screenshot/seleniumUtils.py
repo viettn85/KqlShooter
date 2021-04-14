@@ -45,9 +45,14 @@ def withChrome(headless):
     wait = WebDriverWait(driver,TIME_OUT)
     actions = ActionChains(driver)
 	
-def gotoURL(url):
+def gotoURL(url, cookies = None):
     global driver
     driver.get(url)
+    if cookies:
+        for cookie in cookies:
+            driver.add_cookie(cookie)
+        driver.get(url)
+    
     
 def myGetAttrFromXPath(xPath, attributeName):
     value = waitVisible(xPath).get_attribute(attributeName)
@@ -81,8 +86,17 @@ def waitForClick(xPath):
         # print("xPath", xPath)
         # traceback.print_exc()
 
-def mySendKey(xPath, key):
-    waitVisible(xPath).send_keys(key)
+def mySendKey(xPath, keys):
+    element=waitVisible(xPath)
+    element.send_keys(Keys.COMMAND + "a")
+    element.send_keys(keys)
+
+def press(key, time=1):
+    if(time <= 0):
+        return
+    ActionChains(driver).send_keys(key).perform()
+    time-=1
+    press(key,time)
 
 def myClick(xPath):
     try:
