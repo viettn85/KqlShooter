@@ -1,13 +1,12 @@
 if [ $1 == 'help' ]
 then
     while read line; do echo $line; done < shooter.help
-elif [ $1 == 'daily' ] || [ $1 == 'weekly' ] || [ $1 == 'monthly' ]
+elif [ $2 == 'daily' ] || [ $2 == 'weekly' ] || [ $2 == 'monthly' ]
 then
-    python3 src/screenshot/fialda.py $1
-elif [ $1 == '15m' ] || [ $1 == '1h' ] || [ $1 == '1d' ]
+    python3 src/screenshot/fialda.py $2
+elif [ $2 == '15m' ] || [ $2 == '1h' ] || [ $2 == '1d' ]
 then
-    python3 src/screenshot/fialda.py $1 $2
+    python3 src/screenshot/fialda.py $2 $3
 else
     echo Wrong commands
-    fi
 fi
