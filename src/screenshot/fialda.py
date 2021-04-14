@@ -12,7 +12,7 @@ import logging.config
 logging.config.fileConfig(fname='log.conf', disable_existing_loggers=False)
 logger = logging.getLogger()
 import traceback
-
+import pandas as pd
 from sendScreenshot import send
 
 #Constants

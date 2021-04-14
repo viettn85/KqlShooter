@@ -1,0 +1,10 @@
+kqls help: Show all commands
+kqls shoot daily
+kqls shoot weekly
+kqls shoot monthly
+kqls shoot 15m
+kqls shoot 15m email
+kqls shoot 1h
+kqls shoot 1h email
+kqls shoot 1d
+kqls shoot 1d email
