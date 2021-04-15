@@ -65,3 +65,54 @@
 2021-04-14 23:31:39,305 - INFO fialda.py:119 - Screenshot Fialda successfully
 2021-04-14 23:31:48,592 - INFO sendScreenshot.py:61 - Sent Update 1 day at 2021-04-14 23-31  from screenshots/realtime/1_day/
 2021-04-14 23:52:19,261 - INFO fialda.py:119 - Screenshot Fialda successfully
+2021-04-15 01:17:53,684 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 01:23:36,076 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 01:26:14,890 - INFO sendScreenshot.py:61 - Sent Update 1 day at 2021-04-15 01-23  from screenshots/realtime/1_day/
+2021-04-15 09:50:15,117 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:12:58,569 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:12:58,658 - ERROR fialda.py:114 - Failed to screenshot 15 minutes screenshots/portfolio/
+2021-04-15 17:12:58,658 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11ceeb340>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:12:58,659 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11cf5d730>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:12:58,659 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11cf5daf0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:12:58,661 - ERROR fialda.py:114 - Failed to screenshot 1 hour screenshots/portfolio/
+2021-04-15 17:12:58,662 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11cf5d0a0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:12:58,662 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11cf5d4c0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:12:58,662 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x11cf5d880>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/4dcc94f68636fe5bf5a404190dcf24fc
+2021-04-15 17:14:04,289 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:14:04,376 - ERROR fialda.py:114 - Failed to screenshot 15 minutes screenshots/portfolio/
+2021-04-15 17:14:04,377 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x12608b340>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:14:04,377 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x126104730>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:14:04,378 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x126104af0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:14:04,380 - ERROR fialda.py:114 - Failed to screenshot 1 hour screenshots/portfolio/
+2021-04-15 17:14:04,380 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1261040a0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:14:04,380 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x1261044c0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:14:04,381 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x126104880>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/682aec6b40849070958cc0c9cec7c3bc
+2021-04-15 17:15:50,885 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:15:50,974 - ERROR fialda.py:114 - Failed to screenshot 15 minutes screenshots/portfolio/
+2021-04-15 17:15:50,974 - ERROR fialda.py:115 - [Errno 17] File exists: 'screenshots/portfolio/'
+2021-04-15 17:15:50,975 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119cfb340>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:15:50,975 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119d6d730>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:15:50,976 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119d6daf0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:15:50,978 - ERROR fialda.py:114 - Failed to screenshot 1 hour screenshots/portfolio/
+2021-04-15 17:15:50,978 - ERROR fialda.py:115 - [Errno 17] File exists: 'screenshots/portfolio/'
+2021-04-15 17:15:50,978 - WARNING connectionpool.py:780 - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119d6d910>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:15:50,979 - WARNING connectionpool.py:780 - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119d6d4c0>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:15:50,979 - WARNING connectionpool.py:780 - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x119d6d880>: Failed to establish a new connection: [Errno 61] Connection refused')': /session/f2f30239379560ddbec7efcb858cdb5c
+2021-04-15 17:16:36,217 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:17:05,872 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:17:34,066 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:23:52,057 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:24:40,235 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:25:31,033 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:33:13,902 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:33:44,694 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:34:14,738 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:36:38,773 - INFO sendScreenshot.py:61 - Sent Update Portfolio at 2021-04-15 17-34  from screenshots/realtime/1_day/
+2021-04-15 17:41:20,262 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:41:35,471 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:41:51,654 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:42:16,297 - INFO sendScreenshot.py:61 - Sent Update Urgent PVD,HBC at 2021-04-15 17-41  from screenshots/urgent/
+2021-04-15 17:45:30,101 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:45:49,457 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:46:06,495 - INFO fialda.py:112 - Screenshot Fialda successfully
+2021-04-15 17:46:29,382 - INFO sendScreenshot.py:61 - Sent Update Urgent DLG,MBB at 2021-04-15 17-46  from screenshots/urgent/

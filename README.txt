@@ -3,4 +3,4 @@
 2. Update email info inside stock.env
 3. Add cookies.txt
 4. Update .bash_profile
-alias kqls='cd YOUR_LOCATION/KqlShooter && ./shooter.sh'
+alias kqls='cd /Users/viet_tran/Workplace/trading/KqlShooter && ./shooter.sh'

@@ -11,7 +11,7 @@ import logging
 import logging.config
 logging.config.fileConfig(fname='log.conf', disable_existing_loggers=False)
 logger = logging.getLogger()
-
+import pandas as pd
 from sendScreenshot import send
 
 #Constants
@@ -31,16 +31,16 @@ def parseCookieFile(cookiefile):
         cookies.append({"name":c.name, "value": c.value, "domain": c.domain})
     return cookies
 
-def shoot(textTimeFrame, symbols, location):
+def shoot(textTimeFrame, symbols, location, isMerged):
     try:
         inputArgs = sys.argv
         # textTimeFrame = timeframe.lower().replace("_"," ")
         path = location
         # Create folder
-        if os.path.isdir(path):
+        if os.path.isdir(path) and isMerged:
             print("[Directory already exist:]", path)
             shutil.rmtree(path, ignore_errors=True)
-        os.mkdir(path) 
+            os.mkdir(path) 
 
         withChrome(HEAD_LESS)
         url = "https://fialda.com/phan-tich-ky-thuat"
@@ -110,8 +110,10 @@ def shoot(textTimeFrame, symbols, location):
                     failedSymbols.append(symbol)
                     traceback.print_exc()
         logger.info("Screenshot Fialda successfully")
-    except:
+    except Exception as e:
         logger.error("Failed to screenshot {} {}".format(textTimeFrame, location))
+        logger.error(e)
+        traceback.print_exc()
     finally:
         quit()
     if len(failedSymbols) > 0:
@@ -124,20 +126,45 @@ def getStocks(stockFile):
 
 if __name__ == '__main__':
     if (sys.argv[1] == 'daily'):
-        shoot("1 day", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1day'))
-    if (sys.argv[1] == 'weekly'):
-        shoot("1 week", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1week'))
-    if (sys.argv[1] == 'monthly'):
-        shoot("1 month", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1month'))
-    if (sys.argv[1] == '15m'):
-        shoot("15 minutes", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_15min'))
+        shoot("1 day", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1day'), True)
+    elif (sys.argv[1] == 'weekly'):
+        shoot("1 week", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1week'), True)
+    elif (sys.argv[1] == 'monthly'):
+        shoot("1 month", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1month'), True)
+    elif (sys.argv[1] == '15m'):
+        shoot("15 minutes", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_15min'), True)
         if (len(sys.argv) == 3):
             send("15 minutes", os.getenv('screenshot_15min'))
-    if (sys.argv[1] == '1h'):
-        shoot("1 hour", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_1h'))
+    elif (sys.argv[1] == '1h'):
+        shoot("1 hour", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_1h'), True)
         if (len(sys.argv) == 3):
             send("1 hour", os.getenv('screenshot_1h'))
-    if (sys.argv[1] == '1d'):
-        shoot("1 day", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_realtime_1day'))
+    elif (sys.argv[1] == '1d'):
+        shoot("1 day", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_realtime_1day'), True)
         if (len(sys.argv) == 3):
             send("1 day", os.getenv('screenshot_realtime_1day'))
+    elif (sys.argv[1] == 'portfolio'):
+        shoot("1 day", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), True)
+        shoot("15 minutes", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), False)
+        shoot("1 hour", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), False)
+        if (len(sys.argv) == 3):
+            send("Portfolio", os.getenv('screenshot_portfolio'))
+    elif (sys.argv[1] == 'following'):
+        shoot("1 day", getStocks(os.getenv('following')), os.getenv('screenshot_following'), True)
+        shoot("15 minutes", getStocks(os.getenv('following')), os.getenv('screenshot_following'), False)
+        shoot("1 hour", getStocks(os.getenv('following')), os.getenv('screenshot_following'), False)
+        if (len(sys.argv) == 3):
+            send("Following", os.getenv('screenshot_following'))
+    elif (sys.argv[1] == 'vn30'):
+        shoot("1 day", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), True)
+        shoot("15 minutes", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), False)
+        shoot("1 hour", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), False)
+        if (len(sys.argv) == 3):
+            send("VN30", os.getenv('screenshot_vn30'))
+    else:
+        symbols = sys.argv[1].split(",")
+        shoot("1 day", symbols, os.getenv('screenshot_urgent'), True)
+        shoot("15 minutes", symbols, os.getenv('screenshot_urgent'), False)
+        shoot("1 hour", symbols, os.getenv('screenshot_urgent'), False)
+        if (len(sys.argv) == 3):
+            send("Urgent " + sys.argv[1], os.getenv('screenshot_urgent'))

@@ -19,7 +19,7 @@ def send(timeframe, location):
         now = datetime.now()
         current_time = now.strftime("%Y-%m-%d %H-%M")
         subject = "Update {} at {} ".format(timeframe, current_time)
-        body = "Your portfolio and following"
+        body = "Your screenshots. Happy Trading!"
 
         # Create a multipart message and set headers
         message = MIMEMultipart()

@@ -7,6 +7,9 @@ then
 elif [ $2 == '15m' ] || [ $2 == '1h' ] || [ $2 == '1d' ]
 then
     python3 src/screenshot/fialda.py $2 $3
+elif [ $2 == 'portfolio' ] || [ $2 == 'following' ] || [ $2 == 'vn30' ]
+then
+    python3 src/screenshot/fialda.py $2 $3
 else
-    echo Wrong commands
+    python3 src/screenshot/fialda.py $2 $3
 fi
