@@ -13,6 +13,7 @@ import logging
 import logging.config
 logging.config.fileConfig(fname='log.conf', disable_existing_loggers=False)
 logger = logging.getLogger()
+import traceback
 
 def send(timeframe, location):
     try:
@@ -61,5 +62,6 @@ def send(timeframe, location):
         logger.info("Sent {} from {}".format(subject, location))
     except:
         logger.error("Failed to send email {} from {}".format(subject, location))
+        traceback.print_exc()
 if __name__ == '__main__':
     send(os.getenv('screenshot_15min'))

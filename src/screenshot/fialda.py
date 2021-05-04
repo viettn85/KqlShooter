@@ -67,6 +67,7 @@ def shoot(textTimeFrame, symbols, location, isMerged):
         myClick("//div[@id='header-toolbar-indicators']")
         myClick("//div[@class='tv-insert-study-item__title-text' and text()='Momentum']")
         myClick("//div[@class='tv-insert-study-item__title-text' and contains(string(), 'Stochastic')]")
+        myClick("//div[@class='tv-insert-study-item__title-text' and contains(string(), 'Bollinger Band')]")
         myClick("//div[@class='tv-dialog__close js-dialog__close']")
 
         # FORMAT INDICATOR
@@ -86,13 +87,13 @@ def shoot(textTimeFrame, symbols, location, isMerged):
         # changeStyle("//span[@class='ui-slider-handle ui-corner-all ui-state-default']", 'left', 100)
 
         # RSI
-        myClick("//div[@class='pane-legend-line pane-legend-wrap study']/span[contains(text(),'Stoch')]/../span[@class='pane-legend-icon-container']/a[@class='pane-legend-icon apply-common-tooltip format']")
-        myClick("//div[@class='_tv-dialog-content']")
-        myClick("//input[@class='ticker tv-text-input inset dialog']/../../../../../../div[@class='properties-tabs tv-tabs ui-draggable-handle']/a[1]")
-        myClick("//td[contains(text(),'length')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 7)
-        myClick("//td[contains(text(),'smoothK')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 6)
-        myClick("//td[contains(text(),'smoothD')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 4)
-        myClick("//a[@class='_tv-button ok']")
+        # myClick("//div[@class='pane-legend-line pane-legend-wrap study']/span[contains(text(),'Stoch')]/../span[@class='pane-legend-icon-container']/a[@class='pane-legend-icon apply-common-tooltip format']")
+        # myClick("//div[@class='_tv-dialog-content']")
+        # myClick("//input[@class='ticker tv-text-input inset dialog']/../../../../../../div[@class='properties-tabs tv-tabs ui-draggable-handle']/a[1]")
+        # myClick("//td[contains(text(),'length')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 7)
+        # myClick("//td[contains(text(),'smoothK')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 6)
+        # myClick("//td[contains(text(),'smoothD')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 4)
+        # myClick("//a[@class='_tv-button ok']")
 
 
         for symbol in symbols:
@@ -100,12 +101,13 @@ def shoot(textTimeFrame, symbols, location, isMerged):
                 mySendKey("//div[@id='header-toolbar-symbol-search']/div/input", symbol)
                 press(Keys.DOWN)
                 press(Keys.RETURN)
+                pause(1)
                 # Full screen
-                myClick("//div[@class='group-wWM3zP_M-'][10]")
+                # myClick("//div[@class='group-wWM3zP_M-'][10]")
                 # SCREEN SHOT
                 screenShot("{}{}_{}.png".format(path, symbol, textTimeFrame))
                 # exit fullscreen
-                press(Keys.ESCAPE)
+                # press(Keys.ESCAPE)
             except:
                     failedSymbols.append(symbol)
                     traceback.print_exc()
@@ -143,28 +145,25 @@ if __name__ == '__main__':
         shoot("1 day", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_realtime_1day'), True)
         if (len(sys.argv) == 3):
             send("1 day", os.getenv('screenshot_realtime_1day'))
-    elif (sys.argv[1] == 'portfolio'):
-        shoot("1 day", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), True)
-        shoot("15 minutes", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), False)
-        shoot("1 hour", getStocks(os.getenv('portfolio')), os.getenv('screenshot_portfolio'), False)
-        if (len(sys.argv) == 3):
-            send("Portfolio", os.getenv('screenshot_portfolio'))
-    elif (sys.argv[1] == 'following'):
-        shoot("1 day", getStocks(os.getenv('following')), os.getenv('screenshot_following'), True)
-        shoot("15 minutes", getStocks(os.getenv('following')), os.getenv('screenshot_following'), False)
-        shoot("1 hour", getStocks(os.getenv('following')), os.getenv('screenshot_following'), False)
-        if (len(sys.argv) == 3):
-            send("Following", os.getenv('screenshot_following'))
-    elif (sys.argv[1] == 'vn30'):
-        shoot("1 day", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), True)
-        shoot("15 minutes", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), False)
-        shoot("1 hour", getStocks(os.getenv('vn30')), os.getenv('screenshot_vn30'), False)
-        if (len(sys.argv) == 3):
-            send("VN30", os.getenv('screenshot_vn30'))
     else:
-        symbols = sys.argv[1].split(",")
-        shoot("1 day", symbols, os.getenv('screenshot_urgent'), True)
-        shoot("15 minutes", symbols, os.getenv('screenshot_urgent'), False)
-        shoot("1 hour", symbols, os.getenv('screenshot_urgent'), False)
+        if (sys.argv[1] == 'portfolio'):
+            stocks = getStocks(os.getenv('portfolio'))
+            location = os.getenv('screenshot_portfolio')
+            print("Portfolio")
+        elif (sys.argv[1] == 'following'):
+            stocks = getStocks(os.getenv('following_stocks'))
+            location = os.getenv('screenshot_following')
+            print("Following")
+        elif (sys.argv[1] == 'vn30'):
+            stocks = getStocks(os.getenv('vn30'))
+            location = os.getenv('screenshot_vn30')
+            print("VN30")
+        else:
+            print("List of stocks")
+            stocks = sys.argv[1].split(",")
+            location = os.getenv('screenshot_urgent')
+        shoot("1 day", stocks, location, True)
+        shoot("15 minutes", stocks, location, False)
+        shoot("1 hour", stocks, location, False)
         if (len(sys.argv) == 3):
-            send("Urgent " + sys.argv[1], os.getenv('screenshot_urgent'))
+            send(sys.argv[1], location)
