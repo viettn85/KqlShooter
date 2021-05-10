@@ -58,42 +58,33 @@ def shoot(textTimeFrame, symbols, location, isMerged):
         myClick("//div[contains(@class,'menuWrap')]//div[contains(text(),'" + textTimeFrame +"')]")
         #INCREASE FONT SIZE to 14
         myClick("//div[@id='header-toolbar-properties']")
-        myClick("//div[@class='_tv-dialog-content']")
-        myClick("//div[@class='_tv-dialog-content']/div/a[3]")
-        myClick("//div[@class='tv-select-container dialog tv-select-container-fontsize']/a[@class='sbToggle']")
-        myClick("//div[@class='tv-select-container dialog tv-select-container-fontsize sbHolderOpen']/ul[@class='sbOptions']/li/a[@rel='14']")
-        myClick("//a[@class='_tv-button ok']")
+        # myClick("//div[@data-name='series-properties-dialog']")
+        myClick("//div[@data-name='appearance']")
+        myClick("//div[@data-name='font-size-select']")
+        myClick("//div[@data-name='menu-inner']/div/div/div[text()='14']")
+        myClick("//button[@name='submit']")
         # OPEN RSI & MOMENTUM INDICATORS
         myClick("//div[@id='header-toolbar-indicators']")
-        myClick("//div[@class='tv-insert-study-item__title-text' and text()='Momentum']")
-        myClick("//div[@class='tv-insert-study-item__title-text' and contains(string(), 'Stochastic')]")
-        myClick("//div[@class='tv-insert-study-item__title-text' and contains(string(), 'Bollinger Band')]")
-        myClick("//div[@class='tv-dialog__close js-dialog__close']")
+        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Momentum")
+        myClick("//span[@title='Momentum']")
+        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Stochastic")
+        myClick("//span[@title='Stochastic']")
+        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Bollinger Bands")
+        myClick("//span[@title='Bollinger Bands']")
+        myClick("//span[@data-name='close']")
 
         # FORMAT INDICATOR
         # MOMENTUM
-        myClick("//div[@class='pane-legend-line pane-legend-wrap study']/span[contains(text(),'Mom')]/../span[@class='pane-legend-icon-container']/a[@class='pane-legend-icon apply-common-tooltip format']")
-        myClick("//div[@class='_tv-dialog-content']")
-        myClick("//div[@class='tv-ticker__btn tv-ticker__btn--up']", 2)
+        myHoverAndClick("//div[@data-name='legend-source-title'][text()='Mom']")
+        myClick("//div[@data-name='legend-source-title'][text()='Mom']/../..//div[@data-name='legend-settings-action']")
+        myClick("//div[@data-dialog-name='Mom']//div[text()='Inputs']")
+        mySendKey("//div[@data-dialog-name='Mom']//input[@value='10']", "12")
 
-        myClick("//div[@class='_tv-dialog-content']")
-        myClick("//input[@class='ticker tv-text-input inset dialog']/../../../../../../div[@class='properties-tabs tv-tabs ui-draggable-handle']/a[2]")
-        myClick("//span[@class='tvcolorpicker-container']")
-        myClick("//div[@style='background-color: rgb(0, 0, 0);']")
-
-        myClick("//div[@class='_tv-dialog-content']")
-        myClick("//div[@class='linewidth-slider ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content']")
-        myClick("//a[@class='_tv-button ok']")
-        # changeStyle("//span[@class='ui-slider-handle ui-corner-all ui-state-default']", 'left', 100)
-
-        # RSI
-        # myClick("//div[@class='pane-legend-line pane-legend-wrap study']/span[contains(text(),'Stoch')]/../span[@class='pane-legend-icon-container']/a[@class='pane-legend-icon apply-common-tooltip format']")
-        # myClick("//div[@class='_tv-dialog-content']")
-        # myClick("//input[@class='ticker tv-text-input inset dialog']/../../../../../../div[@class='properties-tabs tv-tabs ui-draggable-handle']/a[1]")
-        # myClick("//td[contains(text(),'length')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 7)
-        # myClick("//td[contains(text(),'smoothK')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 6)
-        # myClick("//td[contains(text(),'smoothD')]/../td//div[@class='tv-ticker__btn tv-ticker__btn--up']", 4)
-        # myClick("//a[@class='_tv-button ok']")
+        myClick("//div[@data-dialog-name='Mom']//div[text()='Style']")
+        myClick("//div[@data-name='color-with-thickness-select']")
+        myClick("//div[contains(@class,'swatches')]//div[@style='color: rgb(0, 0, 0);']")
+        myClick("//div[@data-dialog-name='Mom']//div[text()='Style']")
+        myClick("//button[@name='submit']")
 
 
         for symbol in symbols:
