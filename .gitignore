@@ -2,6 +2,9 @@ logs/*
 ./env
 .DS_Store
 screenshots/realtime/*
+screenshots/vn30/*
+screenshots/portfolio/*
+screenshots/following/*
 screenshots/all/daily/*.png
 screenshots/all/weekly/*.png
 screenshots/all/monthly/*.png
