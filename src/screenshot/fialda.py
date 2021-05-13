@@ -154,7 +154,7 @@ if __name__ == '__main__':
             stocks = sys.argv[1].split(",")
             location = os.getenv('screenshot_urgent')
         shoot("1 day", stocks, location, True)
-        shoot("15 minutes", stocks, location, False)
+        # shoot("15 minutes", stocks, location, False)
         shoot("1 hour", stocks, location, False)
         if (len(sys.argv) == 3):
             send(sys.argv[1], location)
