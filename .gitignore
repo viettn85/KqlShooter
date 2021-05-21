@@ -1,13 +1,7 @@
 logs/*.log
-./env
+env
+env/*
 .DS_Store
-screenshots/realtime/*
-screenshots/portfolio/*.png
-screenshots/following/*.png
-screenshots/vn30/*.png
-screenshots/urgent/*
-screenshots/all/daily/*.png
-screenshots/all/weekly/*.png
-screenshots/all/monthly/*.png
+screenshots/*
 cookies.txt
 src/screenshot/__pycache__/*.pyc

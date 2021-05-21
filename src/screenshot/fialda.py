@@ -2,7 +2,7 @@ import http.cookiejar as cookielib
 from seleniumUtils import *
 import sys
 import os 
-import datetime
+from datetime import datetime
 import shutil
 import numpy
 from dotenv import load_dotenv
@@ -15,7 +15,7 @@ import pandas as pd
 from sendScreenshot import send
 
 #Constants
-HEAD_LESS= True # True: won't display the browser and vice versa
+HEAD_LESS = True # True: won't display the browser and vice versa
 #Variables
 #--------------------------#
 failedSymbols = []
@@ -31,17 +31,17 @@ def parseCookieFile(cookiefile):
         cookies.append({"name":c.name, "value": c.value, "domain": c.domain})
     return cookies
 
-def shoot(textTimeFrame, symbols, location, isMerged):
+def addIndicator(indicator):
+    mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", indicator)
+    myClick("//span[@title='{}']".format(indicator))
+
+def shoot(timeframes, symbols, path, isMerged):
     try:
-        inputArgs = sys.argv
-        # textTimeFrame = timeframe.lower().replace("_"," ")
-        path = location
         # Create folder
         if os.path.isdir(path) and isMerged:
-            print("[Directory already exist:]", path)
+            logger.info("Directory already exist: {}".format(path))
             shutil.rmtree(path, ignore_errors=True)
             os.mkdir(path) 
-
         withChrome(HEAD_LESS)
         url = "https://fialda.com/phan-tich-ky-thuat"
         cookies = parseCookieFile('cookies.txt')
@@ -52,10 +52,6 @@ def shoot(textTimeFrame, symbols, location, isMerged):
         myClick("//i[@class='ico-darkmode']")
         # Goto iframe
         switchToIframe("//iframe[contains(@id,'tradingview')]")
-        
-        # Change timeframe
-        myClick("//div[@id='header-toolbar-intervals']")
-        myClick("//div[contains(@class,'menuWrap')]//div[contains(text(),'" + textTimeFrame +"')]")
         #INCREASE FONT SIZE to 14
         myClick("//div[@id='header-toolbar-properties']")
         # myClick("//div[@data-name='series-properties-dialog']")
@@ -63,98 +59,118 @@ def shoot(textTimeFrame, symbols, location, isMerged):
         myClick("//div[@data-name='font-size-select']")
         myClick("//div[@data-name='menu-inner']/div/div/div[text()='14']")
         myClick("//button[@name='submit']")
-        # OPEN RSI & MOMENTUM INDICATORS
+        # ADD INDICATORS
         myClick("//div[@id='header-toolbar-indicators']")
-        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Momentum")
-        myClick("//span[@title='Momentum']")
-        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Stochastic")
-        myClick("//span[@title='Stochastic']")
-        mySendKey("//div[@data-dialog-name='Indicators']/div/div/input", "Bollinger Bands")
-        myClick("//span[@title='Bollinger Bands']")
+        addIndicator("MACD")
+        addIndicator("Moving Average Exponential")
+        addIndicator("Bollinger Bands")
+        addIndicator("Relative Strength Index")
+        addIndicator("Stochastic")
         myClick("//span[@data-name='close']")
 
         # FORMAT INDICATOR
-        # MOMENTUM
-        myHoverAndClick("//div[@data-name='legend-source-title'][text()='Mom']")
-        myClick("//div[@data-name='legend-source-title'][text()='Mom']/../..//div[@data-name='legend-settings-action']")
-        myClick("//div[@data-dialog-name='Mom']//div[text()='Inputs']")
-        mySendKey("//div[@data-dialog-name='Mom']//input[@value='10']", "12")
-
-        myClick("//div[@data-dialog-name='Mom']//div[text()='Style']")
-        myClick("//div[@data-name='color-with-thickness-select']")
-        myClick("//div[contains(@class,'swatches')]//div[@style='color: rgb(0, 0, 0);']")
-        myClick("//div[@data-dialog-name='Mom']//div[text()='Style']")
+        # EMA
+        myHoverAndClick("//div[@data-name='legend-source-title'][text()='EMA']")
+        myClick("//div[@data-name='legend-source-title'][text()='EMA']/../..//div[@data-name='legend-settings-action']")
+        myClick("//div[@data-dialog-name='EMA']//div[text()='Inputs']")
+        mySendKey("//div[@data-dialog-name='EMA']//input[@value='9']", "200")
         myClick("//button[@name='submit']")
-
-
-        for symbol in symbols:
-            try:
-                mySendKey("//div[@id='header-toolbar-symbol-search']/div/input", symbol)
-                press(Keys.DOWN)
-                press(Keys.RETURN)
-                pause(1)
-                # Full screen
-                # myClick("//div[@class='group-wWM3zP_M-'][10]")
-                # SCREEN SHOT
-                screenShot("{}{}_{}.png".format(path, symbol, textTimeFrame))
-                # exit fullscreen
-                # press(Keys.ESCAPE)
-            except:
-                    failedSymbols.append(symbol)
-                    traceback.print_exc()
-        logger.info("Screenshot Fialda successfully")
+        for timeframe in timeframes:
+            # Change timeframe
+            myClick("//div[@id='header-toolbar-intervals']")
+            myClick("//div[contains(@class,'menuWrap')]//div[contains(text(),'{}')]".format(timeframe))
+            pause(1)
+            for symbol in symbols:
+                try:
+                    mySendKey("//div[@id='header-toolbar-symbol-search']/div/input", symbol)
+                    press(Keys.DOWN)
+                    press(Keys.RETURN)
+                    pause(1)
+                    screenShot("{}{}_{}.png".format(path, symbol, timeframe))
+                except:
+                    logger.info("Failed to screenshot {}".format(symbol))
+                    # traceback.print_exc()
+            logger.info("Screenshot Fialda successfully on chart {}".format(timeframe))
     except Exception as e:
-        logger.error("Failed to screenshot {} {}".format(textTimeFrame, location))
+        logger.error("Failed to screenshot {} {}".format(timeframe, location))
         logger.error(e)
-        traceback.print_exc()
+        # traceback.print_exc()
     finally:
         quit()
-    if len(failedSymbols) > 0:
-        logger.info("Failed symbols" + failedSymbols)
-        numpyArray = numpy.asarray(failedSymbols)
-        numpy.savetxt(path + "/fialda_missing.csv", numpyArray, delimiter=",")
+
+def getCurrentTime():
+    now = datetime.now()
+    return str(now.strftime("%H:%M"))
+
+def shootPsAuto():
+    current_time = getCurrentTime()
+    if (current_time <= "12:31") or (current_time >= "14:14") or (current_time <= "15:31"):
+        stocks = getStocks(os.getenv('ps'))
+        location = os.getenv('screenshot_ps_auto')
+        shoot(["5 minutes", "15 minutes", "1 hour"], stocks, location, True)
+
+def shootPS():
+    stocks = getStocks(os.getenv('ps'))
+    location = os.getenv('screenshot_ps')
+    shoot(["5 minutes", "15 minutes", "1 hour"], stocks, location, True)
 
 def getStocks(stockFile):
     return list(pd.read_csv(stockFile, header=None)[0])
 
 if __name__ == '__main__':
     if (sys.argv[1] == 'daily'):
-        shoot("1 day", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1day'), True)
+        shoot(["1 day"], getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1day'), True)
     elif (sys.argv[1] == 'weekly'):
-        shoot("1 week", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1week'), True)
+        shoot(["1 week"], getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1week'), True)
     elif (sys.argv[1] == 'monthly'):
-        shoot("1 month", getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1month'), True)
+        shoot(["1 month"], getStocks(os.getenv('all_stocks')), os.getenv('screenshot_1month'), True)
     elif (sys.argv[1] == '15m'):
-        shoot("15 minutes", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_15min'), True)
+        shoot(["15 minutes"], getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_15min'), True)
         if (len(sys.argv) == 3):
             send("15 minutes", os.getenv('screenshot_15min'))
     elif (sys.argv[1] == '1h'):
-        shoot("1 hour", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_1h'), True)
+        shoot(["1 hour"], getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_1h'), True)
         if (len(sys.argv) == 3):
             send("1 hour", os.getenv('screenshot_1h'))
     elif (sys.argv[1] == '1d'):
-        shoot("1 day", getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_realtime_1day'), True)
+        shoot(["1 day"], getStocks(os.getenv('following_stocks')) + getStocks(os.getenv('portfolio')), os.getenv('screenshot_realtime_1day'), True)
         if (len(sys.argv) == 3):
             send("1 day", os.getenv('screenshot_realtime_1day'))
+    elif (sys.argv[1] == 'ps_auto'):
+        logger.info("PS Auto")
+        shootPsAuto()
+        if (len(sys.argv) == 3):
+            send("ps", os.getenv('screenshot_ps'))
+    elif (sys.argv[1] == 'ps'):
+        logger.info("PS")
+        shootPS()
+        if (len(sys.argv) == 3):
+            send("ps", os.getenv('screenshot_ps'))
     else:
         if (sys.argv[1] == 'portfolio'):
             stocks = getStocks(os.getenv('portfolio'))
             location = os.getenv('screenshot_portfolio')
-            print("Portfolio")
+            logger.info("Portfolio")
         elif (sys.argv[1] == 'following'):
             stocks = getStocks(os.getenv('following_stocks'))
             location = os.getenv('screenshot_following')
-            print("Following")
+            logger.info("Following")
         elif (sys.argv[1] == 'vn30'):
             stocks = getStocks(os.getenv('vn30'))
             location = os.getenv('screenshot_vn30')
-            print("VN30")
+            logger.info("VN30")
+        elif (sys.argv[1] == 'trends'):
+            stocks = getStocks(os.getenv('trends'))
+            location = os.getenv('screenshot_trends')
+            logger.info("trends")
+        elif (sys.argv[1] == 'scan'):
+            stocks = getStocks(os.getenv('scan'))
+            location = os.getenv('screenshot_scan')
+            logger.info("scan")
         else:
-            print("List of stocks")
+            logger.info("List of stocks")
             stocks = sys.argv[1].split(",")
             location = os.getenv('screenshot_urgent')
-        shoot("1 day", stocks, location, True)
-        # shoot("15 minutes", stocks, location, False)
-        shoot("1 hour", stocks, location, False)
+        shoot(["1 day", '1 hour'], stocks, location, True)
         if (len(sys.argv) == 3):
             send(sys.argv[1], location)
