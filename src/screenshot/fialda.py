@@ -79,13 +79,13 @@ def shoot(timeframes, symbols, path, isMerged):
             # Change timeframe
             myClick("//div[@id='header-toolbar-intervals']")
             myClick("//div[contains(@class,'menuWrap')]//div[contains(text(),'{}')]".format(timeframe))
-            pause(1)
+            pause(2)
             for symbol in symbols:
                 try:
                     mySendKey("//div[@id='header-toolbar-symbol-search']/div/input", symbol)
                     press(Keys.DOWN)
                     press(Keys.RETURN)
-                    pause(1)
+                    pause(2)
                     screenShot("{}{}_{}.png".format(path, symbol, timeframe))
                 except:
                     logger.info("Failed to screenshot {}".format(symbol))
@@ -167,10 +167,23 @@ if __name__ == '__main__':
             stocks = getStocks(os.getenv('scan'))
             location = os.getenv('screenshot_scan')
             logger.info("scan")
+        elif (sys.argv[1] == 'shortlist'):
+            stocks = getStocks(os.getenv('shortlist'))
+            location = os.getenv('screenshot_shortlist')
+            logger.info("shortlist")
+        elif (sys.argv[1] == 'target'):
+            stocks = getStocks(os.getenv('target'))
+            location = os.getenv('screenshot_target')
+            logger.info("target")
+        elif (sys.argv[1] == 'urgent'):
+            stocks = getStocks(os.getenv('urgent'))
+            location = os.getenv('screenshot_urgent')
+            logger.info("urgent")
         else:
             logger.info("List of stocks")
             stocks = sys.argv[1].split(",")
             location = os.getenv('screenshot_urgent')
         shoot(["1 day", '1 hour'], stocks, location, True)
+        # shoot(["1 hour"], stocks, location, False)
         if (len(sys.argv) == 3):
             send(sys.argv[1], location)
