@@ -104,7 +104,7 @@ def getCurrentTime():
 
 def shootPsAuto():
     current_time = getCurrentTime()
-    if (current_time <= "12:31") or (current_time >= "14:14") or (current_time <= "15:31"):
+    if (current_time <= "12:31") or (current_time >= "14:00") or (current_time <= "15:31"):
         stocks = getStocks(os.getenv('ps'))
         location = os.getenv('screenshot_ps_auto')
         shoot(["5 minutes", "15 minutes", "1 hour"], stocks, location, True)
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         logger.info("PS Auto")
         shootPsAuto()
         if (len(sys.argv) == 3):
-            send("ps", os.getenv('screenshot_ps'))
+            send("ps", os.getenv('screenshot_ps_auto'))
     elif (sys.argv[1] == 'ps'):
         logger.info("PS")
         shootPS()
@@ -175,6 +175,10 @@ if __name__ == '__main__':
             stocks = getStocks(os.getenv('target'))
             location = os.getenv('screenshot_target')
             logger.info("target")
+        elif (sys.argv[1] == 'candidate'):
+            stocks = getStocks(os.getenv('candidate'))
+            location = os.getenv('screenshot_candidate')
+            logger.info("candidate")
         elif (sys.argv[1] == 'urgent'):
             stocks = getStocks(os.getenv('urgent'))
             location = os.getenv('screenshot_urgent')
@@ -184,6 +188,7 @@ if __name__ == '__main__':
             stocks = sys.argv[1].split(",")
             location = os.getenv('screenshot_urgent')
         shoot(["1 day", '1 hour'], stocks, location, True)
-        # shoot(["1 hour"], stocks, location, False)
+        # shoot(["1 hour"], stocks, location, True)
+        # shoot(["1 day"], stocks, location, True)
         if (len(sys.argv) == 3):
             send(sys.argv[1], location)
