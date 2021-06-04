@@ -8,3 +8,6 @@ kqls shoot 1h
 kqls shoot 1h email
 kqls shoot 1d
 kqls shoot 1d email
+kqls vol duration MWG: Check vol ratios last month of MWG
+kqls vol duration MWG 2021-05-15 2021-06-03: Check vol ratios from 2021-05-15 to 2021-06-03 of MWG
+kqls vol list portfolio: Check vol ratios of portfolio

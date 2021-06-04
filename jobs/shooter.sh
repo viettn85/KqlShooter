@@ -1,5 +1,3 @@
 #!/bin/bash
-cd /Users/viet_tran/Workplace/viettn85/KQL/KqlShooter/
-# cd LOCATION
-nohup python3 src/screenshot/vnd.py auto > logs/updatef.log &
-# https://stackoverflow.com/questions/29338066/run-python-script-at-os-x-startup
+cd /Users/viet_tran/Workplace/kql/KqlShooter
+/usr/local/bin/python3 src/screenshot/analysisVolume.py report
